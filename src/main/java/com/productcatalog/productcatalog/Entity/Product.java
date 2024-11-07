@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 import jakarta.validation.constraints.Size;
 
@@ -38,7 +39,7 @@ public class Product {
 
     @NotNull(message = "El precio del producto es obligatorio.")
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private Double price;
+    private BigDecimal price;
 
     @NotNull(message = "La cantidad en stock es obligatoria.")
     @Column(name = "stock", nullable = false)
