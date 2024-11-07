@@ -1,4 +1,4 @@
-package com.productcatalog.productcatalog.Respository;
+package com.productcatalog.productcatalog.Repository;
 
 import com.productcatalog.productcatalog.Entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
