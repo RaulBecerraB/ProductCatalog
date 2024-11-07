@@ -1,31 +1,53 @@
 package com.productcatalog.productcatalog.Entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Size;
+
+/**
+ * La clase {@code Product} representa un producto en el sistema.
+ * Esta entidad se mapea a la tabla {@code product} en la base de datos.
+ */
+
+@Data
 @Entity
+@Table(name = "product")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "El nombre del producto no puede estar vacío.")
+    @Size(min = 3, max = 100, message = "El nombre del producto debe tener entre 3 y 100 caracteres.")
+
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @NotNull(message = "El precio del producto es obligatorio.")
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private Double price;
 
-    @Column(nullable = false)
+    @NotNull(message = "La cantidad en stock es obligatoria.")
+    @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
 
-    @Column(nullable = false)
+    @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
     @ManyToOne
@@ -42,6 +64,4 @@ public class Product {
     protected void onUpdate() {
         this.updateDate = LocalDateTime.now();
     }
-
-    // Getters and Setters
 }
